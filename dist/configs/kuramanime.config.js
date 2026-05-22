@@ -1,4 +1,4 @@
 const kuramanimeConfig = {
-    baseUrl: "https://v8.kuramanime.tel",
+    baseUrl: "https://v18.kuramanime.ing/",
 };
 export default kuramanimeConfig;
