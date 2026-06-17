@@ -16,27 +16,10 @@ app.use(clientCache(1));
 
 app.get("/", (req, res) => {
   const routes: IRouteData[] = [
-    {
-      method: "GET",
-      path: "/otakudesu",
-      description: "Otakudesu",
-      pathParams: [],
-      queryParams: [],
-    },
-    {
-      method: "GET",
-      path: "/kuramanime",
-      description: "Kuramanime",
-      pathParams: [],
-      queryParams: [],
-    },
+    { method: "GET", path: "/otakudesu", description: "Otakudesu", pathParams: [], queryParams: [] },
+    { method: "GET", path: "/kuramanime", description: "Kuramanime", pathParams: [], queryParams: [] },
   ];
-
-  res.json(
-    setPayload(res, {
-      data: { routes },
-    })
-  );
+  res.json(setPayload(res, { data: { routes } }));
 });
 
 app.use("/otakudesu", otakudesuRouter);
@@ -45,6 +28,12 @@ app.use("/samehadaku", samehadakuRouter);
 
 app.use(errorHandler);
 
-app.listen(PORT, () => {
-  console.log(`server is running on http://localhost:${PORT}`);
-});
+// ✅ HANYA listen kalau running local (bukan di Vercel)
+if (process.env.VERCEL !== '1') {
+  app.listen(PORT, () => {
+    console.log(`server is running on http://localhost:${PORT}`);
+  });
+}
+
+// ✅ EXPORT untuk Vercel serverless
+export default app;
